@@ -1,0 +1,12 @@
+Sample AuthorityLabs Oauth Consumer
+
+This was built to provide a simple example for consuming the AuthorityLabs Oauth setup. To get up and running:
+
+1. Contact AuthorityLabs and give them your URL and Callback URL (call back URL will be at http://yoururl.com/oauth_consumers/authoritylabs/callback)
+2. Take the key and secret they give you and plug them into their spots in config/initializers/auth_consumers.rb
+3. Signup with it and make API calls (sample call in the show action of the users controller)
+
+It uses:
+oauth gem - http://github.com/oauth/oauth-ruby
+oauth plugin - http://github.com/pelle/oauth-plugin
+restful authentication - http://github.com/technoweenie/restful-authentication

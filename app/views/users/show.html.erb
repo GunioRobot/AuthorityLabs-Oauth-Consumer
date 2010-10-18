@@ -1,0 +1,4 @@
+<h1><%= @user.login %></h1>
+<%= link_to 'OAUTH!', oauth_consumers_path() %>
+
+<%= @response.body.inspect unless @response.blank? %>
