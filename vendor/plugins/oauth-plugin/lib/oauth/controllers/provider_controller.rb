@@ -1,6 +1,6 @@
 module OAuth
   module Controllers
-   
+
     module ProviderController
       def self.included(controller)
         controller.class_eval do
@@ -12,7 +12,7 @@ module OAuth
           skip_before_filter :verify_authenticity_token, :only=>[:request_token, :access_token, :invalidate, :test_request]
         end
       end
-      
+
       def request_token
         @token = current_client_application.create_request_token
         if @token
@@ -20,7 +20,7 @@ module OAuth
         else
           render :nothing => true, :status => 401
         end
-      end 
+      end
 
       def access_token
         @token = current_token && current_token.exchange!
@@ -41,9 +41,9 @@ module OAuth
           render :action=>"authorize_failure"
           return
         end
-        
-        unless @token.invalidated?    
-          if request.post? 
+
+        unless @token.invalidated?
+          if request.post?
             if user_authorizes_token?
               @token.authorize!(current_user)
               if @token.oauth10?
@@ -51,7 +51,7 @@ module OAuth
               else
                 @redirect_url = URI.parse(@token.oob? ? @token.client_application.callback_url : @token.callback_url)
               end
-              
+
               unless @redirect_url.to_s.blank?
                 if @token.oauth10?
                   @redirect_url.query = @redirect_url.query.blank? ?
@@ -85,13 +85,13 @@ module OAuth
         end
         redirect_to oauth_clients_url
       end
-      
+
       # Invalidate current token
       def invalidate
         current_token.invalidate!
         head :status=>410
       end
-      
+
       # Capabilities of current_token
       def capabilities
         if current_token.respond_to?(:capabilities)
@@ -99,7 +99,7 @@ module OAuth
         else
           @capabilities={:invalidate=>url_for(:action=>:invalidate)}
         end
-        
+
         respond_to do |format|
           format.json {render :json=>@capabilities}
           format.xml {render :xml=>@capabilities}
@@ -107,7 +107,7 @@ module OAuth
       end
 
       protected
-      
+
       # Override this to match your authorization page form
       def user_authorizes_token?
         params[:authorize] == '1'

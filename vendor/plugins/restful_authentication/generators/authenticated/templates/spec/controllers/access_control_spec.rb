@@ -43,7 +43,7 @@ ACCESS_CONTROL_IS_LOGIN_REQD = [
 
 describe AccessControlTestController do
   include AuthenticatedTestHelper
-  include AuthenticatedSystem  
+  include AuthenticatedSystem
   fixtures        :<%= table_name %>
   before do
     # is there a better way to do this?
